@@ -13,12 +13,10 @@ async function safeReadJson(res: Response): Promise<unknown> {
   }
 }
 
-export async function http<T>(url: string, init?: RequestInit): Promise<T> {
+export async function http(url: string, init?: RequestInit): Promise<unknown> {
   const res = await fetch(url, init);
 
-  if (res.status === 204) {
-    return undefined as T;
-  }
+  if (res.status === 204) return undefined;
 
   if (!res.ok) {
     const data = await safeReadJson(res);
@@ -27,14 +25,8 @@ export async function http<T>(url: string, init?: RequestInit): Promise<T> {
       ? data.message
       : "Ocorreu um erro ao processar sua solicitação.";
 
-    const err: ApiError = {
-      message,
-      status: res.status,
-    };
-
-    throw err;
+    throw { message, status: res.status } satisfies ApiError;
   }
 
-  const data = await safeReadJson(res);
-  return data as T;
+  return safeReadJson(res);
 }
