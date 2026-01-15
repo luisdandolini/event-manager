@@ -59,7 +59,7 @@ export function EventFormModal(props: Props) {
 
   const form = useForm<EventFormInput, unknown, EventFormOutput>({
     resolver: zodResolver(EventFormSchema),
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues: initialDefaults,
   });
 
