@@ -1,180 +1,182 @@
-# Gerenciador de Eventos - Desafio Técnico Fullstack
+🇺🇸 EN-US
+
+# Event Manager - Fullstack Technical Challenge
 
 [![React](https://img.shields.io/badge/React-18.x-blue)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-blue)](https://tailwindcss.com/)
 [![React Query](https://img.shields.io/badge/React%20Query-5.x-red)](https://tanstack.com/query)
 
-Aplicação Single Page (SPA) para **criar, listar, editar e excluir eventos**, consumindo uma API REST.  
-O foco do projeto é **arquitetura, escalabilidade, robustez e developer experience**, além de UI responsiva e validação consistente.
+Single Page Application (SPA) to **create, list, edit, and delete events**, consuming a REST API.  
+The project focuses on **architecture, scalability, robustness, and developer experience**, plus responsive UI and consistent validation.
 
 ---
 
-## 📋 Índice
+## 📋 Table of Contents
 
-- [Funcionalidades](#-funcionalidades)
-- [Stack / Tecnologias](#-stack--tecnologias)
-- [Como Rodar Localmente](#-como-rodar-localmente)
-- [Estrutura de Pastas](#-estrutura-de-pastas)
-- [Decisões Arquiteturais](#-decisões-arquiteturais)
-- [Validação e Robustez](#-validação-e-robustez)
+- [Features](#-features)
+- [Stack / Technologies](#-stack--technologies)
+- [How to Run Locally](#-how-to-run-locally)
+- [Folder Structure](#-folder-structure)
+- [Architectural Decisions](#-architectural-decisions)
+- [Validation and Robustness](#-validation-and-robustness)
 - [Optimistic Updates](#-optimistic-updates)
-- [Internacionalização](#-internacionalização)
-- [Acessibilidade](#-acessibilidade)
-- [Uso de IA](#-uso-de-ia-transparência)
-- [O que faria com mais tempo](#-o-que-faria-com-mais-tempo)
+- [Internationalization](#-internationalization)
+- [Accessibility](#-accessibility)
+- [AI Usage](#-ai-usage-transparency)
+- [What I Would Do With More Time](#-what-i-would-do-with-more-time)
 
 ---
 
-## ✅ Funcionalidades
+## ✅ Features
 
 ### Core Features
 
-- ✅ **CRUD completo de eventos**
-  - Criar, listar, editar e excluir eventos
-  - Confirmação antes de deletar
-- ✅ **Validações obrigatórias**
-  - `endDate` deve ser **posterior** a `startDate`
-  - `price` deve ser **≥ 0**
-  - Título obrigatório
-- ✅ **Status editável** e refletido na UI em tempo real
+- ✅ **Complete event CRUD**
+  - Create, list, edit, and delete events
+  - Confirmation before deleting
+- ✅ **Required validations**
+  - `endDate` must be **after** `startDate`
+  - `price` must be **≥ 0**
+  - Title is required
+- ✅ **Editable status** reflected in UI in real-time
 - ✅ **Optimistic updates** (React Query)
-  - UI atualiza instantaneamente
-  - Rollback automático em caso de erro
+  - UI updates instantly
+  - Automatic rollback on error
 
-### Filtros e Ordenação
+### Filters and Sorting
 
-- ✅ Filtrar por status (Todos, Em andamento, Pausado, Concluído)
-- ✅ Ordenar por data (crescente/decrescente)
-- ✅ Ordenar por preço (crescente/decrescente)
+- ✅ Filter by status (All, In Progress, Paused, Completed)
+- ✅ Sort by date (ascending/descending)
+- ✅ Sort by price (ascending/descending)
 
 ### UX/UI
 
-- ✅ Estados explícitos de **loading**, **erro** e **lista vazia**
-- ✅ UI totalmente **responsiva** (mobile + desktop)
-- ✅ **Toasts** para feedback de ações
-- ✅ **Modal acessível** com navegação por teclado
-- ✅ **Confirmação de exclusão** com dialog
+- ✅ Explicit **loading**, **error**, and **empty list** states
+- ✅ Fully **responsive** UI (mobile + desktop)
+- ✅ **Toasts** for action feedback
+- ✅ **Accessible modal** with keyboard navigation
+- ✅ **Delete confirmation** with dialog
 
-### Internacionalização (i18n)
+### Internationalization (i18n)
 
-- ✅ 4 idiomas: **Português**, **Inglês**, **Espanhol**, **Hebraico**
-- ✅ Persistência do idioma via `localStorage`
-- ✅ Troca de idioma em tempo real
+- ✅ 4 languages: **Portuguese**, **English**, **Spanish**, **Hebrew**
+- ✅ Language persistence via `localStorage`
+- ✅ Real-time language switching
 
 ---
 
-## 🧱 Stack / Tecnologias
+## 🧱 Stack / Technologies
 
 ### Frontend
 
-| Tecnologia                | Uso                                           |
-| ------------------------- | --------------------------------------------- |
-| **React 18**              | Biblioteca UI (Hooks + Functional Components) |
-| **TypeScript**            | Type safety e melhor DX                       |
-| **TanStack React Query**  | Server state, cache, optimistic updates       |
-| **React Hook Form + Zod** | Validação de formulários type-safe            |
-| **i18next**               | Internacionalização (pt, en, es, he)          |
-| **Sonner**                | Toast notifications                           |
-| **TailwindCSS v4**        | Estilização utility-first                     |
+| Technology                | Usage                                      |
+| ------------------------- | ------------------------------------------ |
+| **React 18**              | UI library (Hooks + Functional Components) |
+| **TypeScript**            | Type safety and better DX                  |
+| **TanStack React Query**  | Server state, cache, optimistic updates    |
+| **React Hook Form + Zod** | Type-safe form validation                  |
+| **i18next**               | Internationalization (pt, en, es, he)      |
+| **Sonner**                | Toast notifications                        |
+| **TailwindCSS v4**        | Utility-first styling                      |
 
 ### API Layer (Mock)
 
-| Tecnologia                    | Uso                                           |
-| ----------------------------- | --------------------------------------------- |
-| **MSW (Mock Service Worker)** | Intercepta requisições HTTP e simula API REST |
-| **Zod**                       | Validação de dados (inputs + responses)       |
+| Technology                    | Usage                                           |
+| ----------------------------- | ----------------------------------------------- |
+| **MSW (Mock Service Worker)** | Intercepts HTTP requests and simulates REST API |
+| **Zod**                       | Data validation (inputs + responses)            |
 
-### Arquitetura
+### Architecture
 
-- **Service Layer** centralizada (`EventsService`)
-- **HTTP Client** centralizado com error handling
-- **MSW Handlers** simulando endpoints REST
-- **Domain-Driven** structure (separação clara de responsabilidades)
+- **Service Layer** centralized (`EventsService`)
+- **HTTP Client** centralized with error handling
+- **MSW Handlers** simulating REST endpoints
+- **Domain-Driven** structure (clear separation of concerns)
 
 ---
 
-## 🚀 Como Rodar Localmente
+## 🚀 How to Run Locally
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js 18+
 - npm/yarn/pnpm
 
-### 1️⃣ Instalar dependências
+### 1️⃣ Install dependencies
 
 ```bash
-# Com npm
+# With npm
 npm install
 
-# Ou com yarn
+# Or with yarn
 yarn
 
-# Ou com pnpm
+# Or with pnpm
 pnpm install
 ```
 
-### 2️⃣ Rodar o projeto
+### 2️⃣ Run the project
 
 ```bash
-# Com npm
+# With npm
 npm run dev
 
-# Ou com yarn
+# Or with yarn
 yarn dev
 
-# Ou com pnpm
+# Or with pnpm
 pnpm dev
 ```
 
-### 3️⃣ Acessar a aplicação
+### 3️⃣ Access the application
 
-Abra o navegador em: **http://localhost:5173**
+Open your browser at: **http://localhost:5173**
 
 ---
 
-## 📁 Estrutura de Pastas
+## 📁 Folder Structure
 
 ```
 src/
 ├── api/
-│   ├── http.ts                 # Cliente HTTP + normalização de erros
-│   └── events.service.ts       # Service layer (CRUD + validação)
+│   ├── http.ts                 # HTTP client + error normalization
+│   └── events.service.ts       # Service layer (CRUD + validation)
 │
 ├── domain/
 │   └── event/
-│       └── event.schema.ts     # Contratos do domínio (Zod schemas + types)
+│       └── event.schema.ts     # Domain contracts (Zod schemas + types)
 │
 ├── components/
-│   ├── ui/                     # Componentes reutilizáveis
+│   ├── ui/                     # Reusable components
 │   │   ├── Button.tsx
 │   │   ├── Modal.tsx
 │   │   ├── FormField.tsx
 │   │   └── LoadingSpinner.tsx
-│   └── events/                 # Componentes de eventos
+│   └── events/                 # Event components
 │       ├── EventList.tsx
 │       ├── EventFormModal.tsx
 │       ├── StatusSelect.tsx
 │       └── ConfirmDialog.tsx
 │
 ├── hooks/
-│   └── useEvents.ts            # Hook React Query (CRUD + cache)
+│   └── useEvents.ts            # React Query hook (CRUD + cache)
 │
 ├── utils/
-│   ├── dateUtils.ts            # Formatação de datas
-│   ├── eventUtils.ts           # Sort/filter de eventos
-│   └── formatters.ts           # Formatação de moeda
+│   ├── dateUtils.ts            # Date formatting
+│   ├── eventUtils.ts           # Event sort/filter
+│   └── formatters.ts           # Currency formatting
 │
 ├── pages/
-│   └── EventsPage.tsx          # Página principal
+│   └── EventsPage.tsx          # Main page
 │
 ├── mocks/
 │   ├── handlers.ts             # MSW handlers (mock API)
-│   ├── data.ts                 # Dados mockados
-│   └── browser.ts              # Setup MSW
+│   ├── data.ts                 # Mock data
+│   └── browser.ts              # MSW setup
 │
 ├── i18n/
-│   ├── index.ts                # Setup i18n
+│   ├── index.ts                # i18n setup
 │   └── locales/
 │       ├── pt/common.json
 │       ├── en/common.json
@@ -185,46 +187,46 @@ src/
 └── main.tsx
 ```
 
-### 🎯 Justificativa da Estrutura
+### 🎯 Structure Rationale
 
-| Pasta         | Responsabilidade              | Por quê?                                            |
-| ------------- | ----------------------------- | --------------------------------------------------- |
-| `domain/`     | Regras de negócio e contratos | Single source of truth do modelo Event              |
-| `api/`        | Comunicação externa           | Centraliza e normaliza requisições HTTP             |
-| `components/` | UI reutilizável               | Separação entre componentes genéricos e específicos |
-| `hooks/`      | Lógica compartilhada          | Encapsula React Query e estado do servidor          |
-| `utils/`      | Funções puras                 | Facilita testes unitários                           |
-| `mocks/`      | Mock de API (MSW)             | Desenvolvimento sem backend real                    |
+| Folder        | Responsibility               | Why?                                               |
+| ------------- | ---------------------------- | -------------------------------------------------- |
+| `domain/`     | Business rules and contracts | Single source of truth for Event model             |
+| `api/`        | External communication       | Centralizes and normalizes HTTP requests           |
+| `components/` | Reusable UI                  | Separation between generic and specific components |
+| `hooks/`      | Shared logic                 | Encapsulates React Query and server state          |
+| `utils/`      | Pure functions               | Facilitates unit testing                           |
+| `mocks/`      | API mock (MSW)               | Development without real backend                   |
 
 ---
 
-## 🏗️ Decisões Arquiteturais
+## 🏗️ Architectural Decisions
 
-### 1. **Separação de Responsabilidades**
+### 1. **Separation of Concerns**
 
 ```
 ┌─────────────┐
-│   UI Layer  │  ← Componentes React (apresentação)
+│   UI Layer  │  ← React Components (presentation)
 └──────┬──────┘
        │
 ┌──────▼──────┐
-│  Hook Layer │  ← useEvents (lógica de estado)
+│  Hook Layer │  ← useEvents (state logic)
 └──────┬──────┘
        │
 ┌──────▼──────┐
-│Service Layer│  ← EventsService (chamadas API)
+│Service Layer│  ← EventsService (API calls)
 └──────┬──────┘
        │
 ┌──────▼──────┐
-│  HTTP Layer │  ← Cliente HTTP (fetch + error handling)
+│  HTTP Layer │  ← HTTP client (fetch + error handling)
 └──────┬──────┘
        │
 ┌──────▼──────┐
-│     API     │  ← Backend REST
+│     API     │  ← REST Backend
 └─────────────┘
 ```
 
-### 2. **Tratamento de Erros**
+### 2. **Error Handling**
 
 ```typescript
 // api/http.ts
@@ -237,64 +239,463 @@ export async function http<T>(url: string, init?: RequestInit): Promise<T> {
     if (!res.ok) {
       const data = await safeReadJson(res);
       throw {
-        message: data?.message || "Erro desconhecido",
+        message: data?.message || "Unknown error",
         status: res.status,
       };
     }
 
     return await res.json();
   } catch (error) {
-    // Normaliza erros (rede, parse, etc)
+    // Normalizes errors (network, parse, etc)
     throw error;
   }
 }
 ```
 
-**Benefícios:**
+**Benefits:**
 
-- Mensagens amigáveis (não vaza detalhes internos)
+- User-friendly messages (doesn't leak internal details)
 - Type-safe
-- Consistente em toda aplicação
+- Consistent across the entire application
 
 ---
 
-## 🔧 Decisão Técnica: Mock Service Worker (MSW) ao invés de Java/Spring Boot
+## 🔧 Technical Decision: Mock Service Worker (MSW) instead of Java/Spring Boot
 
-### ⚠️ Contexto
+### ⚠️ Context
 
-O desafio recomenda fortemente a implementação de uma API em **Java/Spring Boot**. No entanto, optei por usar **Mock Service Worker (MSW)** ao invés de implementar o backend em Java.
+The challenge strongly recommends implementing an API in **Java/Spring Boot**. However, I chose to use **Mock Service Worker (MSW)** instead of implementing the backend in Java.
 
-### 💡 Justificativa
+### 💡 Rationale
 
-#### 1. **Ausência de experiência com Java**
+#### 1. **Lack of experience with Java**
 
-- Não possuo experiência prévia com Java ou o ecossistema Spring Boot
-- Aprender Java do zero em 1-3 dias resultaria em código de **baixa qualidade**
-- Entregar código Java iniciante seria **contraproducente** e não refletiria competência técnica real
+- I have no prior experience with Java or the Spring Boot ecosystem
+- Learning Java from scratch in 1-3 days would result in **low-quality** code
+- Delivering beginner Java code would be **counterproductive** and wouldn't reflect real technical competence
 
-#### 2. **Por que MSW é uma escolha técnica sólida**
+#### 2. **Why MSW is a solid technical choice**
 
-**MSW (Mock Service Worker)** não é apenas um "mock simples" - é uma ferramenta profissional:
+**MSW (Mock Service Worker)** is not just a "simple mock" - it's a professional tool:
 
-✅ **Intercepta requisições HTTP reais** (via Service Worker)  
-✅ **Simula comportamento de API real:**
+✅ **Intercepts real HTTP requests** (via Service Worker)  
+✅ **Simulates real API behavior:**
 
-- Latência de rede (delays configuráveis)
-- Erros HTTP (404, 400, 500)
-- Validações server-side
-- Respostas inválidas
-- Edge cases (lista vazia, network failure)
+- Network latency (configurable delays)
+- HTTP errors (404, 400, 500)
+- Server-side validations
+- Invalid responses
+- Edge cases (empty list, network failure)
 
-✅ **Permite testar cenários críticos** que seriam difíceis de reproduzir:
+✅ **Allows testing critical scenarios** that would be difficult to reproduce:
 
-- Falhas intermitentes de rede
-- Respostas malformadas
-- Timeout de requisições
-- Erros de validação específicos
+- Intermittent network failures
+- Malformed responses
+- Request timeouts
+- Specific validation errors
 
-#### 3. **Priorização consciente**
+#### 3. **Conscious prioritization**
 
-Diante do tempo limitado (1-3 dias), priorizei:
+Given the limited time (1-3 days), I prioritized:
+
+✅ **Realistic API simulation with MSW** (latency, errors, validations)  
+✅ **Robust and scalable frontend architecture**  
+✅ **Clear separation of concerns** (domain, api, hooks)  
+✅ **Multi-layer validation** (form + MSW + runtime)  
+✅ **Optimistic state and intelligent cache** (React Query)  
+✅ **Professional UX/UI** (responsive, accessible, i18n)  
+✅ **Clean and maintainable code**
+
+#### 4. **MSW implementation (not a simple mock)**
+
+```typescript
+// mocks/handlers.ts - Simulates backend with validations
+export const handlers = [
+  http.post("/api/events", async ({ request }) => {
+    await delay(600); // Simulates network latency
+
+    const body = await request.json();
+
+    // Server-side validation (as Java would do)
+    const validation = CreateEventSchema.safeParse(body);
+
+    if (!validation.success) {
+      const firstError = validation.error.issues[0];
+      return HttpResponse.json(
+        { message: firstError.message },
+        { status: 400 } // Bad Request
+      );
+    }
+
+    // Simulates occasional server error (5%)
+    if (Math.random() < 0.05) {
+      return HttpResponse.json(
+        { message: "Internal server error" },
+        { status: 500 }
+      );
+    }
+
+    // Success
+    const newEvent = { id: generateId(), ...validation.data };
+    mockEvents.push(newEvent);
+    return HttpResponse.json(newEvent, { status: 201 });
+  }),
+
+  // GET, PATCH, DELETE with similar logic...
+];
+```
+
+**Simulated behaviors:**
+
+- ✅ Data validation (endDate > startDate, price >= 0)
+- ✅ HTTP error responses (400/404/500)
+- ✅ Realistic latencies (300-600ms)
+- ✅ Complete CRUD with in-memory persistence
+- ✅ Random network errors (to test robustness)
+
+#### 5. **Frontend ready for real integration**
+
+The frontend was architected for **immediate integration** with any REST backend:
+
+```typescript
+// api/events.service.ts
+export const EventsService = {
+  async list(): Promise<Event[]> {
+    const data = await http<unknown>("/api/events");
+    return EventsListSchema.parse(data); // Validates response
+  },
+
+  async create(input: CreateEventInput): Promise<Event> {
+    const payload = CreateEventSchema.parse(input); // Validates input
+    const data = await http<unknown>("/api/events", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    return EventSchema.parse(data); // Validates response
+  },
+  // ...
+};
+```
+
+**To integrate with real backend:**
+
+1. Change base URL in `http.ts` (from `/api` to `https://api.example.com`)
+2. Adjust Zod schemas if format changes
+3. **Zero changes** in business logic or components
+
+#### 4. **Requirements met on frontend**
+
+| Requirement                     | Status                         |
+| ------------------------------- | ------------------------------ |
+| UI vs data logic separation     | ✅ Implemented                 |
+| Centralized communication layer | ✅ `EventsService` + `http.ts` |
+| Network error handling          | ✅ Try/catch + normalization   |
+| Invalid response handling       | ✅ Zod parse + error handling  |
+| Empty state handling            | ✅ Empty states in UI          |
+| Don't trust API blindly         | ✅ Runtime validation (Zod)    |
+
+### 📊 Impact on Scalability, Security, and Maintainability
+
+#### **Scalability**
+
+- ✅ **Frontend:** Feature-based architecture allows adding new entities (`/features/users`, `/features/tickets`)
+- ✅ **Service Layer:** Easy to add new services (`UsersService`, `TicketsService`)
+- ⚠️ **Backend:** Absent, but frontend structure facilitates integration
+
+#### **Security**
+
+- ✅ **Frontend:**
+  - Input validation (form + runtime)
+  - Data sanitization
+  - Doesn't leak implementation details in errors
+- ⚠️ **Backend:** Absent, but frontend **expects** server-side validation (defense in depth)
+
+#### **Maintainability**
+
+- ✅ **Frontend:**
+  - Clean, typed code (TypeScript)
+  - Clear separation of concerns
+  - Testable components
+  - Inline documentation
+- ⚠️ **Backend:** Not applicable
+
+### 🏁 Conclusion
+
+This decision reflects:
+
+1. ✅ **Technical honesty** - I acknowledge I didn't meet 100% of the requirement
+2. ✅ **Conscious prioritization** - I invested where I could add more value
+3. ✅ **Solid architecture** - I demonstrated senior-level engineering thinking
+4. ✅ **Future preparation** - Frontend ready for integration without refactoring
+
+**With more time and/or in real context:**
+
+- Would learn Java/Spring Boot formally
+- Would implement backend following the same architectural principles
+- Would maintain the same separation of concerns
+
+---
+
+## ✅ Validation and Robustness
+
+### 1. **Form Validation (Frontend)**
+
+```typescript
+// React Hook Form + Zod
+const EventFormSchema = z
+  .object({
+    title: z.string().min(1, "Title is required"),
+    startDateLocal: z.string().min(1, "Start date is required"),
+    endDateLocal: z.string().min(1, "End date is required"),
+    price: z.number().min(0, "Price must be ≥ 0"),
+    status: z.enum(["STARTED", "PAUSED", "COMPLETED"]),
+  })
+  .superRefine((val, ctx) => {
+    // Business rule: endDate > startDate
+    if (new Date(val.endDateLocal) <= new Date(val.startDateLocal)) {
+      ctx.addIssue({
+        code: "custom",
+        message: "End date must be after start date",
+        path: ["endDateLocal"],
+      });
+    }
+  });
+```
+
+### 2. **Runtime Validation (API Responses)**
+
+```typescript
+// EventsService validates ALL responses
+async list(): Promise<Event[]> {
+  const data = await http<unknown>('/api/events');
+  return EventsListSchema.parse(data); // ← Zod validates
+}
+```
+
+**Why?**
+
+- API may return unexpected data
+- Backend changes don't break frontend silently
+- Type safety guaranteed at runtime
+
+### 3. **Error Handling**
+
+```typescript
+// Component shows user-friendly error
+{
+  error && (
+    <div role="alert">
+      <p>Unable to load events</p>
+      <p>{error}</p> {/* Normalized message, no stack trace */}
+      <button onClick={refetch}>Try again</button>
+    </div>
+  );
+}
+```
+
+---
+
+## ⚡ Optimistic Updates
+
+### How does it work?
+
+```typescript
+// hooks/useEvents.ts
+const createMutation = useMutation({
+  mutationFn: EventsService.create,
+
+  onMutate: async (newEvent) => {
+    // 1. Cancel ongoing queries
+    await queryClient.cancelQueries({ queryKey: ["events"] });
+
+    // 2. Snapshot of previous state (backup)
+    const previousEvents = queryClient.getQueryData(["events"]);
+
+    // 3. Update UI IMMEDIATELY (optimistic)
+    queryClient.setQueryData(["events"], (old) => [
+      ...old,
+      { id: Date.now(), ...newEvent }, // Temporary ID
+    ]);
+
+    // 4. Return context for rollback
+    return { previousEvents };
+  },
+
+  onError: (err, variables, context) => {
+    // ROLLBACK: Restore previous state
+    if (context?.previousEvents) {
+      queryClient.setQueryData(["events"], context.previousEvents);
+    }
+  },
+
+  onSettled: () => {
+    // Revalidate server data
+    queryClient.invalidateQueries({ queryKey: ["events"] });
+  },
+});
+```
+
+**Result:**
+
+- ✅ UI updates **instantly**
+- ✅ User sees change without delay
+- ✅ If API fails → automatic rollback
+- ✅ If API succeeds → reconciles with real data
+
+---
+
+## 🌍 Internationalization
+
+### Supported Languages
+
+| Language   | Code | Status            |
+| ---------- | ---- | ----------------- |
+| Portuguese | `pt` | ✅ Complete       |
+| English    | `en` | ✅ Complete       |
+| Spanish    | `es` | ✅ Complete       |
+| Hebrew     | `he` | ✅ Complete (RTL) |
+
+### Implementation
+
+```typescript
+// i18n/index.ts
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    pt: { common: require("./locales/pt/common.json") },
+    en: { common: require("./locales/en/common.json") },
+    es: { common: require("./locales/es/common.json") },
+    he: { common: require("./locales/he/common.json") },
+  },
+  lng: localStorage.getItem("lang") || "pt",
+  fallbackLng: "pt",
+});
+```
+
+### Usage in components
+
+```typescript
+import { useTranslation } from "react-i18next";
+
+function EventsPage() {
+  const { t } = useTranslation("common");
+
+  return <h1>{t("events.title")}</h1>;
+}
+```
+
+### Persistence
+
+- Language saved in `localStorage` (`lang`)
+- `LanguageSwitch` component allows switching
+- Change reflects instantly
+
+---
+
+## ♿ Accessibility
+
+### Implementations
+
+#### 1. **ARIA Labels**
+
+```tsx
+<button onClick={onDelete} aria-label={`Delete event ${event.title}`}>
+  Delete
+</button>
+```
+
+#### 2. **Keyboard Navigation**
+
+- `ESC` closes modals
+- `Tab` navigates between fields
+- Focus trap in modals (focus doesn't escape)
+
+#### 3. **Semantic HTML**
+
+```tsx
+<article role="listitem">
+  <h3>{event.title}</h3>
+  <time dateTime={event.startDate}>{formatDate(event.startDate)}</time>
+</article>
+```
+
+#### 4. **Loading States**
+
+```tsx
+<div role="status" aria-live="polite">
+  <LoadingSpinner />
+  Loading events...
+</div>
+```
+
+#### 5. **Error Messages**
+
+```tsx
+<p role="alert" aria-live="polite">
+  {error}
+</p>
+```
+
+### WCAG 2.1 Checklist
+
+- ✅ Adequate color contrast (AA)
+- ✅ Alternative text for icons
+- ✅ Visible focus rings
+- ✅ Keyboard navigation
+- ✅ Screen reader friendly
+- ✅ Form fields with labels
+
+---
+
+## 🤖 AI Usage (Transparency)
+
+### Tools Used
+
+**Claude AI**
+
+### Where AI was used
+
+| Area              | How I used it                      | What I reviewed/modified              |
+| ----------------- | ---------------------------------- | ------------------------------------- |
+| **Brainstorming** | Discussion about folder structure  | Adapted to my context                 |
+| **React Query**   | Examples of optimistic updates     | Implemented and tested locally        |
+| **Naming**        | Function/variable name suggestions | Reviewed and adjusted for consistency |
+| **Documentation** | Help with README structure         | Rewrote entire sections               |
+
+### What I did manually
+
+1. ✅ Implemented **all** business logic
+2. ✅ Manually tested every feature
+3. ✅ Reviewed and refactored generated code
+4. ✅ Made **all** final architectural decisions
+5. ✅ Wrote and adjusted this documentation
+6. ✅ Prioritized features based on the challenge
+7. ✅ Debugged and fixed bugs
+
+## 🎯 What I Would Do With More Time
+
+### Testing
+
+- [ ] Unit tests (Vitest)
+
+### Performance
+
+- [ ] Route lazy loading
+- [ ] Optimized images (WebP)
+
+### DevOps
+
+- [ ] Automatic deployment (Vercel/Netlify)
+- [ ] Environments (dev/staging/prod)
+
+### Features
+
+- [ ] List pagination
+- [ ] Dark/light theme
+
+---ias), priorizei:
 
 ✅ **Simular API realista com MSW** (latência, erros, validações)  
 ✅ **Arquitetura frontend robusta e escalável**  

@@ -1,3 +1,5 @@
+🇧🇷 PT-BR
+
 # Gerenciador de Eventos - Desafio Técnico Fullstack
 
 [![React](https://img.shields.io/badge/React-18.x-blue)](https://reactjs.org/)
