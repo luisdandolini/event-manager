@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
 import {
   toLocalInputValue,
   toIsoFromLocalInput,
@@ -14,7 +15,7 @@ import { Modal } from "../../../components/ui/Modal";
 import { FormField } from "../../../components/ui/FormField";
 import { Button } from "../../../components/ui/Button";
 import {
-  EventFormSchema,
+  createEventFormSchema,
   type EventFormInput,
   type EventFormOutput,
 } from "../schemas/eventForm.schema";
@@ -50,21 +51,32 @@ function buildDefaultValues(): EventFormInput {
   };
 }
 
+function hasMessage(err: unknown): err is { message: unknown } {
+  return typeof err === "object" && err !== null && "message" in err;
+}
+
 export function EventFormModal(props: Props) {
   const { open, mode, isSubmitting, onClose } = props;
+  const { t } = useTranslation("common");
+  const schema = useMemo(() => createEventFormSchema(t), [t]);
 
   const [initialDefaults] = useState<EventFormInput>(() =>
     buildDefaultValues()
   );
 
   const form = useForm<EventFormInput, unknown, EventFormOutput>({
-    resolver: zodResolver(EventFormSchema),
+    resolver: zodResolver(schema),
     mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: initialDefaults,
   });
 
   const disabled = !!isSubmitting;
-  const modalTitle = mode === "create" ? "Novo evento" : "Editar evento";
+
+  const modalTitle =
+    mode === "create"
+      ? t("eventForm.modal.createTitle")
+      : t("eventForm.modal.editTitle");
 
   const initialTitle = mode === "edit" ? props.initial.title : "";
   const initialStartDate = mode === "edit" ? props.initial.startDate : "";
@@ -122,11 +134,12 @@ export function EventFormModal(props: Props) {
         await props.onSubmit(payload as UpdateEventInput);
       }
       handleClose();
-    } catch (err) {
-      form.setError("root", {
-        type: "server",
-        message: err instanceof Error ? err.message : "Erro ao salvar.",
-      });
+    } catch (err: unknown) {
+      const message = hasMessage(err)
+        ? String(err.message)
+        : t("eventForm.serverError");
+
+      form.setError("root", { type: "server", message });
     }
   });
 
@@ -136,7 +149,7 @@ export function EventFormModal(props: Props) {
     <Modal
       open={open}
       title={modalTitle}
-      description="Preencha todos os campos obrigatórios. A data de fim deve ser posterior à data de início."
+      description={t("eventForm.modal.description")}
       onClose={handleClose}
     >
       <form className="space-y-4" onSubmit={handleSubmit} noValidate>
@@ -152,9 +165,9 @@ export function EventFormModal(props: Props) {
 
         <FormField
           name="title"
-          label="Título do evento"
+          label={t("eventForm.fields.title.label")}
           required
-          hint="Ex: React Conference 2026"
+          hint={t("eventForm.fields.title.hint")}
           error={form.formState.errors.title?.message}
         >
           {(a11y) => (
@@ -171,7 +184,7 @@ export function EventFormModal(props: Props) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField
             name="startDateLocal"
-            label="Data e hora de início"
+            label={t("eventForm.fields.startDate.label")}
             required
             error={form.formState.errors.startDateLocal?.message}
           >
@@ -188,7 +201,7 @@ export function EventFormModal(props: Props) {
 
           <FormField
             name="endDateLocal"
-            label="Data e hora de fim"
+            label={t("eventForm.fields.endDate.label")}
             required
             error={form.formState.errors.endDateLocal?.message}
           >
@@ -207,9 +220,9 @@ export function EventFormModal(props: Props) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField
             name="price"
-            label="Preço (R$)"
+            label={t("eventForm.fields.price.label")}
             required
-            hint="Valor mínimo: R$ 0,00"
+            hint={t("eventForm.fields.price.hint")}
             error={form.formState.errors.price?.message}
           >
             {(a11y) => (
@@ -218,14 +231,18 @@ export function EventFormModal(props: Props) {
                 type="text"
                 inputMode="decimal"
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 disabled:bg-gray-50 disabled:cursor-not-allowed"
-                placeholder="0,00"
+                placeholder={t("eventForm.fields.price.placeholder")}
                 disabled={disabled}
                 {...form.register("price")}
               />
             )}
           </FormField>
 
-          <FormField name="status" label="Status" required>
+          <FormField
+            name="status"
+            label={t("eventForm.fields.status.label")}
+            required
+          >
             {(a11y) => (
               <select
                 {...a11y}
@@ -233,9 +250,11 @@ export function EventFormModal(props: Props) {
                 disabled={disabled}
                 {...form.register("status")}
               >
-                <option value="STARTED">Em andamento</option>
-                <option value="PAUSED">Pausado</option>
-                <option value="COMPLETED">Concluído</option>
+                <option value="STARTED">{t("events.status.STARTED")}</option>
+                <option value="PAUSED">{t("events.status.PAUSED")}</option>
+                <option value="COMPLETED">
+                  {t("events.status.COMPLETED")}
+                </option>
               </select>
             )}
           </FormField>
@@ -249,7 +268,7 @@ export function EventFormModal(props: Props) {
             disabled={disabled}
             className="cursor-pointer"
           >
-            Cancelar
+            {t("actions.cancel")}
           </Button>
 
           <Button
@@ -259,7 +278,9 @@ export function EventFormModal(props: Props) {
             disabled={disabled}
             className="cursor-pointer"
           >
-            {mode === "create" ? "Criar evento" : "Salvar alterações"}
+            {mode === "create"
+              ? t("eventForm.actions.create")
+              : t("eventForm.actions.save")}
           </Button>
         </div>
       </form>

@@ -1,0 +1,124 @@
+{
+  "i18n": {
+    "switchLanguage": "החלפת שפה",
+    "pt": "פורטוגזית",
+    "en": "אנגלית",
+    "es": "ספרדית",
+    "he": "עברית"
+  },
+  "actions": {
+    "retry": "נסה שוב",
+    "clearFilters": "נקה מסננים",
+    "cancel": "ביטול",
+    "edit": "עריכה",
+    "delete": "מחיקה"
+  },
+  "events": {
+    "loading": {
+      "title": "טוען אירועים",
+      "subtitle": "אנא המתן בזמן שאנו טוענים את האירועים שלך..."
+    },
+    "error": {
+      "title": "שגיאה בטעינת אירועים"
+    },
+    "header": {
+      "title": "מנהל אירועים",
+      "subtitle": "צור, ערוך וארגן את האירועים שלך בקלות"
+    },
+    "actions": {
+      "create": "אירוע חדש",
+      "createAria": "צור אירוע חדש"
+    },
+    "filters": {
+      "title": "מסננים",
+      "statusLabel": "סטטוס:",
+      "statusAria": "סינון לפי סטטוס",
+      "sortLabel": "מיון:",
+      "sortAria": "מיין אירועים",
+      "status": {
+        "all": "הכול"
+      }
+    },
+    "status": {
+      "STARTED": "בתהליך",
+      "PAUSED": "מושהה",
+      "COMPLETED": "הושלם"
+    },
+    "sort": {
+      "START_DATE_ASC": "תאריך (הישן ביותר)",
+      "START_DATE_DESC": "תאריך (החדש ביותר)",
+      "PRICE_ASC": "מחיר (מהנמוך לגבוה)",
+      "PRICE_DESC": "מחיר (מהגבוה לנמוך)"
+    },
+    "emptyFiltered": {
+      "title": "אין אירועים שתואמים למסננים",
+      "subtitle": "נסה לשנות את המסננים כדי למצוא את מה שאתה מחפש"
+    },
+    "list": {
+      "empty": {
+        "title": "לא נמצאו אירועים",
+        "subtitle": "התחל ביצירת אירוע חדש."
+      },
+      "aria": {
+        "statusForEvent": "סטטוס עבור האירוע {{title}}",
+        "editEvent": "ערוך את האירוע {{title}}",
+        "deleteEvent": "מחק את האירוע {{title}}"
+      }
+    },
+    "table": {
+      "columns": {
+        "event": "אירוע",
+        "start": "התחלה",
+        "end": "סיום",
+        "price": "מחיר",
+        "status": "סטטוס",
+        "actions": "פעולות"
+      }
+    },
+    "confirmDelete": {
+      "title": "מחיקת אירוע",
+      "message": "האם אתה בטוח שברצונך למחוק את \"{{title}}\"? פעולה זו אינה ניתנת לביטול.",
+      "confirm": "כן, למחוק",
+      "cancel": "ביטול"
+    }
+  },
+  "eventForm": {
+    "serverError": "שגיאה בשמירה.",
+    "modal": {
+      "createTitle": "אירוע חדש",
+      "editTitle": "עריכת אירוע",
+      "description": "מלא את כל שדות החובה. תאריך הסיום חייב להיות לאחר תאריך ההתחלה."
+    },
+    "actions": {
+      "create": "צור אירוע",
+      "save": "שמור שינויים"
+    },
+    "fields": {
+      "title": {
+        "label": "כותרת האירוע",
+        "hint": "לדוגמה: React Conference 2026"
+      },
+      "startDate": {
+        "label": "תאריך ושעת התחלה"
+      },
+      "endDate": {
+        "label": "תאריך ושעת סיום"
+      },
+      "price": {
+        "label": "מחיר (ש״ח)",
+        "hint": "ערך מינימלי: R$ 0.00",
+        "placeholder": "0.00"
+      },
+      "status": {
+        "label": "סטטוס"
+      }
+    }
+  },
+  "validation": {
+    "event": {
+      "titleRequired": "כותרת היא שדה חובה",
+      "priceMin": "המחיר חייב להיות ≥ 0",
+      "endAfterStart": "תאריך הסיום חייב להיות לאחר תאריך ההתחלה"
+    }
+  }
+}

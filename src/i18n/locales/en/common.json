@@ -1,0 +1,124 @@
+{
+  "i18n": {
+    "switchLanguage": "Switch language",
+    "pt": "Portuguese",
+    "en": "English",
+    "es": "Spanish",
+    "he": "Hebrew"
+  },
+  "actions": {
+    "retry": "Try again",
+    "clearFilters": "Clear filters",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "events": {
+    "loading": {
+      "title": "Loading events",
+      "subtitle": "Please wait while we load your events..."
+    },
+    "error": {
+      "title": "Error loading events"
+    },
+    "header": {
+      "title": "Event Manager",
+      "subtitle": "Create, edit, and organize your events easily"
+    },
+    "actions": {
+      "create": "New event",
+      "createAria": "Create new event"
+    },
+    "filters": {
+      "title": "Filters",
+      "statusLabel": "Status:",
+      "statusAria": "Filter by status",
+      "sortLabel": "Sort:",
+      "sortAria": "Sort events",
+      "status": {
+        "all": "All"
+      }
+    },
+    "status": {
+      "STARTED": "In progress",
+      "PAUSED": "Paused",
+      "COMPLETED": "Completed"
+    },
+    "sort": {
+      "START_DATE_ASC": "Date (oldest)",
+      "START_DATE_DESC": "Date (newest)",
+      "PRICE_ASC": "Price (lowest)",
+      "PRICE_DESC": "Price (highest)"
+    },
+    "emptyFiltered": {
+      "title": "No events match the filters",
+      "subtitle": "Try adjusting the filters to find what you're looking for"
+    },
+    "list": {
+      "empty": {
+        "title": "No events found",
+        "subtitle": "Start by creating a new event."
+      },
+      "aria": {
+        "statusForEvent": "Status for event {{title}}",
+        "editEvent": "Edit event {{title}}",
+        "deleteEvent": "Delete event {{title}}"
+      }
+    },
+    "table": {
+      "columns": {
+        "event": "Event",
+        "start": "Start",
+        "end": "End",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions"
+      }
+    },
+    "confirmDelete": {
+      "title": "Delete event",
+      "message": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "confirm": "Yes, delete",
+      "cancel": "Cancel"
+    }
+  },
+  "eventForm": {
+    "serverError": "Error saving.",
+    "modal": {
+      "createTitle": "New event",
+      "editTitle": "Edit event",
+      "description": "Fill in all required fields. The end date must be after the start date."
+    },
+    "actions": {
+      "create": "Create event",
+      "save": "Save changes"
+    },
+    "fields": {
+      "title": {
+        "label": "Event title",
+        "hint": "e.g., React Conference 2026"
+      },
+      "startDate": {
+        "label": "Start date and time"
+      },
+      "endDate": {
+        "label": "End date and time"
+      },
+      "price": {
+        "label": "Price ($)",
+        "hint": "Minimum value: R$ 0.00",
+        "placeholder": "0.00"
+      },
+      "status": {
+        "label": "Status"
+      }
+    }
+  },
+  "validation": {
+    "event": {
+      "titleRequired": "Title is required",
+      "priceMin": "Price must be ≥ 0",
+      "endAfterStart": "End date must be after the start date"
+    }
+  }
+}

@@ -1,3 +1,5 @@
+import { getLocale } from "./i18nFormat";
+
 export function toLocalInputValue(iso: string): string {
   const date = new Date(iso);
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -15,7 +17,7 @@ export function toIsoFromLocalInput(value: string): string {
 
 export function formatDate(iso: string): string {
   const date = new Date(iso);
-  return new Intl.DateTimeFormat("pt-BR", {
+  return new Intl.DateTimeFormat(getLocale(), {
     dateStyle: "short",
     timeStyle: "short",
   }).format(date);

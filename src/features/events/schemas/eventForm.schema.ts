@@ -1,59 +1,67 @@
 import { z } from "zod";
+import type { TFunction } from "i18next";
 
-export const PriceSchema = z
-  .union([z.string(), z.number()])
-  .transform((value, context) => {
-    const rawText = typeof value === "number" ? String(value) : value;
-    const normalizedText = rawText.replace(",", ".").trim();
-    const parsedNumber = Number(normalizedText);
+export const PriceSchema = (t: TFunction) =>
+  z
+    .union([z.string(), z.number()])
+    .transform((value, context) => {
+      const raw = typeof value === "number" ? String(value) : value;
+      const normalized = raw.replace(",", ".").trim();
+      const parsedNumber = Number(normalized);
 
-    if (!Number.isFinite(parsedNumber)) {
-      context.addIssue({ code: "custom", message: "Preço inválido" });
-      return z.NEVER;
-    }
+      if (!Number.isFinite(parsedNumber)) {
+        context.addIssue({
+          code: "custom",
+          message: t("validation.event.priceInvalid"),
+        });
+        return z.NEVER;
+      }
 
-    return parsedNumber;
-  })
-  .pipe(z.number().min(0, "Preço deve ser ≥ 0"));
+      return parsedNumber;
+    })
+    .pipe(z.number().min(0, t("validation.event.priceMin")));
 
-export const EventFormSchema = z
-  .object({
-    title: z.string().min(1, "Título é obrigatório"),
-    startDateLocal: z.string().min(1, "Data de início é obrigatória"),
-    endDateLocal: z.string().min(1, "Data de fim é obrigatória"),
-    price: PriceSchema,
-    status: z.enum(["STARTED", "PAUSED", "COMPLETED"]),
-  })
-  .superRefine((formData, context) => {
-    const startTimestampMs = new Date(formData.startDateLocal).getTime();
-    const endTimestampMs = new Date(formData.endDateLocal).getTime();
+export const createEventFormSchema = (t: TFunction) =>
+  z
+    .object({
+      title: z.string().min(1, t("validation.event.titleRequired")),
+      startDateLocal: z.string().min(1, t("validation.event.startRequired")),
+      endDateLocal: z.string().min(1, t("validation.event.endRequired")),
+      price: PriceSchema(t),
+      status: z.enum(["STARTED", "PAUSED", "COMPLETED"]),
+    })
+    .superRefine((value, context) => {
+      const start = new Date(value.startDateLocal).getTime();
+      const end = new Date(value.endDateLocal).getTime();
 
-    if (Number.isNaN(startTimestampMs)) {
-      context.addIssue({
-        code: "custom",
-        message: "Data de início inválida",
-        path: ["startDateLocal"],
-      });
-      return;
-    }
+      if (Number.isNaN(start)) {
+        context.addIssue({
+          code: "custom",
+          message: t("validation.event.startInvalid"),
+          path: ["startDateLocal"],
+        });
+        return;
+      }
 
-    if (Number.isNaN(endTimestampMs)) {
-      context.addIssue({
-        code: "custom",
-        message: "Data de fim inválida",
-        path: ["endDateLocal"],
-      });
-      return;
-    }
+      if (Number.isNaN(end)) {
+        context.addIssue({
+          code: "custom",
+          message: t("validation.event.endInvalid"),
+          path: ["endDateLocal"],
+        });
+        return;
+      }
 
-    if (endTimestampMs <= startTimestampMs) {
-      context.addIssue({
-        code: "custom",
-        message: "Data de fim deve ser posterior à data de início",
-        path: ["endDateLocal"],
-      });
-    }
-  });
+      if (end <= start) {
+        context.addIssue({
+          code: "custom",
+          message: t("validation.event.endAfterStart"),
+          path: ["endDateLocal"],
+        });
+      }
+    });
 
-export type EventFormInput = z.input<typeof EventFormSchema>;
-export type EventFormOutput = z.output<typeof EventFormSchema>;
+export type EventFormInput = z.input<ReturnType<typeof createEventFormSchema>>;
+export type EventFormOutput = z.output<
+  ReturnType<typeof createEventFormSchema>
+>;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { Event } from "../../../domain/event/event.schema";
 import { StatusSelect } from "./StatusSelect";
 import { ConfirmDialog } from "./ConfirmDialog";
@@ -30,6 +31,7 @@ export function EventList({
   isDeleting,
   isUpdating,
 }: EventListProps) {
+  const { t } = useTranslation("common");
   const [deleteConfirm, setDeleteConfirm] = useState<Event | null>(null);
 
   const handleDeleteClick = (event: Event) => setDeleteConfirm(event);
@@ -48,10 +50,10 @@ export function EventList({
           aria-hidden="true"
         />
         <h3 className="mt-2 text-sm font-semibold text-gray-900">
-          Nenhum evento encontrado
+          {t("events.list.empty.title")}
         </h3>
         <p className="mt-1 text-sm text-gray-500">
-          Comece criando um novo evento.
+          {t("events.list.empty.subtitle")}
         </p>
       </div>
     );
@@ -86,10 +88,12 @@ export function EventList({
 
       <ConfirmDialog
         open={!!deleteConfirm}
-        title="Excluir evento"
-        message={`Tem certeza que deseja excluir "${deleteConfirm?.title}"? Esta ação não pode ser desfeita.`}
-        confirmLabel="Sim, excluir"
-        cancelLabel="Cancelar"
+        title={t("events.confirmDelete.title")}
+        message={t("events.confirmDelete.message", {
+          title: deleteConfirm?.title ?? "",
+        })}
+        confirmLabel={t("events.confirmDelete.confirm")}
+        cancelLabel={t("actions.cancel")}
         variant="danger"
         onConfirm={handleConfirmDelete}
         onCancel={() => setDeleteConfirm(null)}
@@ -114,6 +118,8 @@ function EventCardMobile({
   isDeleting?: boolean;
   isUpdating?: boolean;
 }) {
+  const { t } = useTranslation("common");
+
   return (
     <article
       className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition-shadow duration-200"
@@ -147,7 +153,9 @@ function EventCardMobile({
           value={event.status}
           onChange={onChangeStatus}
           disabled={isUpdating}
-          ariaLabel={`Status do evento ${event.title}`}
+          ariaLabel={t("events.list.aria.statusForEvent", {
+            title: event.title,
+          })}
         />
       </div>
 
@@ -157,10 +165,10 @@ function EventCardMobile({
           size="sm"
           onClick={onEdit}
           className="flex-1"
-          aria-label={`Editar evento ${event.title}`}
+          aria-label={t("events.list.aria.editEvent", { title: event.title })}
         >
           <Pencil className="h-4 w-4" aria-hidden="true" />
-          Editar
+          {t("actions.edit")}
         </Button>
 
         <Button
@@ -169,10 +177,10 @@ function EventCardMobile({
           onClick={onDelete}
           disabled={isDeleting}
           className="flex-1"
-          aria-label={`Excluir evento ${event.title}`}
+          aria-label={t("events.list.aria.deleteEvent", { title: event.title })}
         >
           <Trash2 className="h-4 w-4" aria-hidden="true" />
-          Excluir
+          {t("actions.delete")}
         </Button>
       </div>
     </article>
@@ -194,47 +202,31 @@ function EventTableDesktop({
   isDeleting?: boolean;
   isUpdating?: boolean;
 }) {
+  const { t } = useTranslation("common");
+
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Evento
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.event")}
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Início
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.start")}
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Fim
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.end")}
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Preço
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.price")}
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Status
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.status")}
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500"
-              >
-                Ações
+              <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                {t("events.table.columns.actions")}
               </th>
             </tr>
           </thead>
@@ -278,7 +270,9 @@ function EventTableDesktop({
                     value={event.status}
                     onChange={(status) => onChangeStatus(event.id, status)}
                     disabled={isUpdating}
-                    ariaLabel={`Status do evento ${event.title}`}
+                    ariaLabel={t("events.list.aria.statusForEvent", {
+                      title: event.title,
+                    })}
                   />
                 </td>
 
@@ -288,11 +282,13 @@ function EventTableDesktop({
                       variant="ghost"
                       size="sm"
                       onClick={() => onEdit(event)}
-                      aria-label={`Editar evento ${event.title}`}
+                      aria-label={t("events.list.aria.editEvent", {
+                        title: event.title,
+                      })}
                       className="cursor-pointer"
                     >
                       <Pencil className="h-4 w-4" aria-hidden="true" />
-                      Editar
+                      {t("actions.edit")}
                     </Button>
 
                     <Button
@@ -301,10 +297,12 @@ function EventTableDesktop({
                       onClick={() => onDelete(event)}
                       disabled={isDeleting}
                       className="text-red-600 hover:bg-red-50 hover:text-red-700 cursor-pointer"
-                      aria-label={`Excluir evento ${event.title}`}
+                      aria-label={t("events.list.aria.deleteEvent", {
+                        title: event.title,
+                      })}
                     >
                       <Trash2 className="h-4 w-4" aria-hidden="true" />
-                      Excluir
+                      {t("actions.delete")}
                     </Button>
                   </div>
                 </td>

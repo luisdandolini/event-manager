@@ -1,0 +1,124 @@
+{
+  "i18n": {
+    "switchLanguage": "Alterar idioma",
+    "pt": "Português",
+    "en": "Inglês",
+    "es": "Espanhol",
+    "he": "Hebraico"
+  },
+  "actions": {
+    "retry": "Tentar novamente",
+    "clearFilters": "Limpar filtros",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Excluir"
+  },
+  "events": {
+    "loading": {
+      "title": "Carregando eventos",
+      "subtitle": "Aguarde enquanto carregamos seus eventos..."
+    },
+    "error": {
+      "title": "Erro ao carregar eventos"
+    },
+    "header": {
+      "title": "Gerenciador de Eventos",
+      "subtitle": "Crie, edite e organize seus eventos de forma simples"
+    },
+    "actions": {
+      "create": "Novo evento",
+      "createAria": "Criar novo evento"
+    },
+    "filters": {
+      "title": "Filtros",
+      "statusLabel": "Status:",
+      "statusAria": "Filtrar por status",
+      "sortLabel": "Ordenar:",
+      "sortAria": "Ordenar eventos",
+      "status": {
+        "all": "Todos"
+      }
+    },
+    "status": {
+      "STARTED": "Em andamento",
+      "PAUSED": "Pausado",
+      "COMPLETED": "Concluído"
+    },
+    "sort": {
+      "START_DATE_ASC": "Data (mais antigo)",
+      "START_DATE_DESC": "Data (mais recente)",
+      "PRICE_ASC": "Preço (menor)",
+      "PRICE_DESC": "Preço (maior)"
+    },
+    "emptyFiltered": {
+      "title": "Nenhum evento corresponde aos filtros",
+      "subtitle": "Tente ajustar os filtros para encontrar o que procura"
+    },
+    "list": {
+      "empty": {
+        "title": "Nenhum evento encontrado",
+        "subtitle": "Comece criando um novo evento."
+      },
+      "aria": {
+        "statusForEvent": "Status do evento {{title}}",
+        "editEvent": "Editar evento {{title}}",
+        "deleteEvent": "Excluir evento {{title}}"
+      }
+    },
+    "table": {
+      "columns": {
+        "event": "Evento",
+        "start": "Início",
+        "end": "Fim",
+        "price": "Preço",
+        "status": "Status",
+        "actions": "Ações"
+      }
+    },
+    "confirmDelete": {
+      "title": "Excluir evento",
+      "message": "Tem certeza que deseja excluir \"{{title}}\"? Esta ação não pode ser desfeita.",
+      "confirm": "Sim, excluir",
+      "cancel": "Cancelar"
+    }
+  },
+  "eventForm": {
+    "serverError": "Erro ao salvar.",
+    "modal": {
+      "createTitle": "Novo evento",
+      "editTitle": "Editar evento",
+      "description": "Preencha todos os campos obrigatórios. A data de fim deve ser posterior à data de início."
+    },
+    "actions": {
+      "create": "Criar evento",
+      "save": "Salvar alterações"
+    },
+    "fields": {
+      "title": {
+        "label": "Título do evento",
+        "hint": "Ex: React Conference 2026"
+      },
+      "startDate": {
+        "label": "Data e hora de início"
+      },
+      "endDate": {
+        "label": "Data e hora de fim"
+      },
+      "price": {
+        "label": "Preço (R$)",
+        "hint": "Valor mínimo: R$ 0,00",
+        "placeholder": "0,00"
+      },
+      "status": {
+        "label": "Status"
+      }
+    }
+  },
+  "validation": {
+    "event": {
+      "titleRequired": "Título é obrigatório",
+      "priceMin": "Preço deve ser ≥ 0",
+      "endAfterStart": "Data de fim deve ser posterior à data de início"
+    }
+  }
+}

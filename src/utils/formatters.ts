@@ -1,6 +1,8 @@
+import { getCurrency, getLocale } from "./i18nFormat";
+
 export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("pt-BR", {
+  return new Intl.NumberFormat(getLocale(), {
     style: "currency",
-    currency: "BRL",
+    currency: getCurrency(),
   }).format(value);
 }
