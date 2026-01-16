@@ -118,7 +118,10 @@
     "event": {
       "titleRequired": "El título es obligatorio",
       "priceMin": "El precio debe ser ≥ 0",
-      "endAfterStart": "La fecha de fin debe ser posterior a la fecha de inicio"
+      "endAfterStart": "La fecha de fin debe ser posterior a la fecha de inicio",
+      "priceInvalid": "Precio inválido",
+      "startRequired": "La fecha y hora de inicio son obligatorias",
+      "endRequired": "La fecha y hora de fin son obligatorias"
     }
   }
 }

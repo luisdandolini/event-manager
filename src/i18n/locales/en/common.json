@@ -118,7 +118,10 @@
     "event": {
       "titleRequired": "Title is required",
       "priceMin": "Price must be ≥ 0",
-      "endAfterStart": "End date must be after the start date"
+      "endAfterStart": "End date must be after the start date",
+      "priceInvalid": "Invalid price",
+      "startRequired": "Start date and time are required",
+      "endRequired": "End date and time are required"
     }
   }
 }
